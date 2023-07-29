@@ -76,3 +76,12 @@ export class RestaurantFindResponseDto {
   @ApiProperty()
   updatedAt: Date;
 }
+
+export class RestaurantBookingRequestDto {
+  @ApiProperty({
+    format: "mongoid",
+  })
+  @IsString()
+  @IsNotEmpty()
+  client: string;
+}

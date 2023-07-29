@@ -38,6 +38,19 @@ export class RestaurantRepository {
     return RestaurantTransformer.toResponse(restaurantRemoved.toObject());
   }
 
+  async booking(id: string, client: string): Promise<IRestaurant> {
+    await this.db.updateOne(
+      { _id: id },
+      {
+        $push: {
+          clients: { $each: [client] },
+        },
+      }
+    );
+    
+    return this.findOne(id);
+  }
+
   async closeAtMidnight(): Promise<void> {
     await this.db.updateMany({ clients: { $ne: [] } }, { clients: [] });
   }

@@ -1,5 +1,5 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument, Schema as MongooseSchema, Types } from 'mongoose';
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { HydratedDocument, Schema as MongooseSchema, Types } from "mongoose";
 
 export type RestaurantDocument = HydratedDocument<Restaurant>;
 
@@ -8,13 +8,13 @@ export class Restaurant {
   @Prop({ required: true })
   name: string;
 
-  @Prop({ required: false, default: '' })
+  @Prop({ required: false, default: "" })
   address: string;
 
   @Prop({ required: true })
   capacity: number;
 
-  @Prop({ type: [MongooseSchema.Types.ObjectId], ref: 'Clients', default: [] })
+  @Prop({ type: [MongooseSchema.Types.ObjectId], ref: "Clients", default: [] })
   clients: Types.ObjectId[];
 }
 

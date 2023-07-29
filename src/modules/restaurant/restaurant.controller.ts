@@ -1,5 +1,19 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from "@nestjs/common";
-import { RestaurantCreateRequestDto, RestaurantFindOneParamDto, RestaurantFindResponseDto, RestaurantUpdateRequestDto } from "./restaurant.dto";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from "@nestjs/common";
+import {
+  RestaurantBookingRequestDto,
+  RestaurantCreateRequestDto,
+  RestaurantFindOneParamDto,
+  RestaurantFindResponseDto,
+  RestaurantUpdateRequestDto,
+} from "./restaurant.dto";
 import { RestaurantService } from "./restaurant.service";
 import { IRestaurant } from "./restaurant.interface";
 import {
@@ -24,6 +38,17 @@ export class RestaurantController {
 
   @ApiBearerAuth()
   @ApiResponse({ status: 200, type: RestaurantFindResponseDto })
+  @ApiOperation({ description: "Create a booking" })
+  @Post("/:id/booking")
+  reservation(
+    @Param() { id }: RestaurantFindOneParamDto,
+    @Body() booking: RestaurantBookingRequestDto
+  ): Promise<IRestaurant> {
+    return this.service.booking(id, booking.client);
+  }
+
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, type: RestaurantFindResponseDto })
   @ApiOperation({ description: "Create a restaurant" })
   @Post()
   create(@Body() restaurant: RestaurantCreateRequestDto): Promise<IRestaurant> {
@@ -34,7 +59,10 @@ export class RestaurantController {
   @ApiResponse({ status: 200, type: RestaurantFindResponseDto })
   @ApiOperation({ description: "Update one restaurant" })
   @Patch("/:id")
-  update(@Param() { id }: RestaurantFindOneParamDto, @Body() restaurant: RestaurantUpdateRequestDto): Promise<IRestaurant> {
+  update(
+    @Param() { id }: RestaurantFindOneParamDto,
+    @Body() restaurant: RestaurantUpdateRequestDto
+  ): Promise<IRestaurant> {
     return this.service.update(id, restaurant);
   }
 
