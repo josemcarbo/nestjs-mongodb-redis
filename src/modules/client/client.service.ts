@@ -31,6 +31,13 @@ export class ClientService {
     return newClient
   }
 
+  async update(id: string, client: Partial<IClient>): Promise<IClient> {
+    const clientUpdated = await this.repository.update(id, client)
+    await this.redisService.set(clientUpdated.id, JSON.stringify(clientUpdated));
+    
+    return clientUpdated
+  }
+
   async delete(id: string): Promise<IClient> {
     const [response] = await Promise.all([
       this.repository.delete(id),

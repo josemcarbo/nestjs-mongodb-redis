@@ -1,13 +1,14 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty } from "@nestjs/swagger";
 import {
   IsEmail,
   IsMongoId,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsPhoneNumber,
   IsString,
   Min,
-} from 'class-validator';
+} from "class-validator";
 
 export class ClientCreateRequestDto {
   @ApiProperty()
@@ -29,9 +30,33 @@ export class ClientCreateRequestDto {
   age: number;
 }
 
+export class ClientUpdateRequestDto {
+  @ApiProperty({ required: false })
+  @IsString()
+  @IsNotEmpty()
+  @IsOptional()
+  name?: string;
+
+  @ApiProperty({ required: false })
+  @IsEmail()
+  @IsOptional()
+  email?: string;
+
+  @ApiProperty({ required: false })
+  @IsPhoneNumber()
+  @IsOptional()
+  phone?: string;
+
+  @ApiProperty({ required: false })
+  @IsNumber()
+  @IsOptional()
+  @Min(18)
+  age?: number;
+}
+
 export class ClientFindOneParamDto {
   @ApiProperty({
-    format: 'mongoid',
+    format: "mongoid",
   })
   @IsMongoId()
   @IsNotEmpty()
@@ -40,7 +65,7 @@ export class ClientFindOneParamDto {
 
 export class ClientFindResponseDto {
   @ApiProperty({
-    format: 'mongoid',
+    format: "mongoid",
   })
   id: string;
 
