@@ -9,7 +9,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const config = new DocumentBuilder()
-    .setTitle('Nestjs skeleton API')
+    .setTitle('Nestjs-MongoDB-Redis API')
     .setVersion('1.0')
     .addBearerAuth()
     .build();

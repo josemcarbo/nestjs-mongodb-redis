@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { IRestaurant } from './restaurant.interface';
 import { RestaurantRepository } from './restaurant.repository';
 import { RedisService } from '../../shared/redis/redis.service';
+import { Cron, CronExpression } from '@nestjs/schedule';
 
 @Injectable()
 export class RestaurantService {
@@ -45,5 +46,10 @@ export class RestaurantService {
     ]);
 
     return response;
+  }
+
+  @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
+  async close(): Promise<void> {
+    await this.repository.closeAtMidnight()
   }
 }

@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ScheduleModule } from '@nestjs/schedule';
 import { CacheModule } from '@nestjs/cache-manager';
 import { RedisClientOptions } from 'redis';
 import { ApiModule } from './modules/api.module';
@@ -10,6 +11,7 @@ import { ApiModule } from './modules/api.module';
     CacheModule.register<RedisClientOptions>({
       isGlobal: true
     }),
+    ScheduleModule.forRoot(),
     ApiModule,
   ],
 })
