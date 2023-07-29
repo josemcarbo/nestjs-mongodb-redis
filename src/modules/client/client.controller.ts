@@ -37,7 +37,7 @@ export class ClientController {
 
   @ApiBearerAuth()
   @ApiResponse({ status: 200, type: ClientFindResponseDto })
-  @ApiOperation({ description: "Get one client" })
+  @ApiOperation({ description: "Update one client" })
   @Patch("/:id")
   update(@Param() { id }: ClientFindOneParamDto, @Body() client: ClientUpdateRequestDto): Promise<IClient> {
     return this.service.update(id, client);
@@ -45,7 +45,7 @@ export class ClientController {
 
   @ApiBearerAuth()
   @ApiResponse({ status: 200, type: ClientFindResponseDto })
-  @ApiOperation({ description: "Get one client" })
+  @ApiOperation({ description: "Delete one client" })
   @Delete("/:id")
   delete(@Param() { id }: ClientFindOneParamDto): Promise<IClient> {
     return this.service.delete(id);
