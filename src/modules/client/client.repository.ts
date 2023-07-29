@@ -16,11 +16,12 @@ export class ClientRepository {
   }
 
   async create(client: IClient): Promise<IClient> {
-    const newBoard = (await this.db.create(client)).toObject();
-    return ClientTransformer.toResponse(newBoard);
+    const newClient = await this.db.create(client);
+    return ClientTransformer.toResponse(newClient.toObject());
   }
 
-  async update(id: string, client: Partial<IClient>): Promise<IClient> {
-    return this.db.findByIdAndUpdate(id, client).lean();
+  async delete(id: string): Promise<IClient> {
+    const clientRemoved = await this.db.findByIdAndRemove(id)
+    return ClientTransformer.toResponse(clientRemoved.toObject());
   }
 }

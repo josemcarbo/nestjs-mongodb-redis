@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post } from "@nestjs/common";
 import {
   ClientCreateRequestDto,
   ClientFindOneParamDto,
@@ -32,5 +32,13 @@ export class ClientController {
   @Post()
   create(@Body() client: ClientCreateRequestDto): Promise<IClient> {
     return this.service.create(client);
+  }
+
+  @ApiBearerAuth()
+  @ApiResponse({ status: 200, type: ClientFindResponseDto })
+  @ApiOperation({ description: "Get one client" })
+  @Delete("/:id")
+  delete(@Param() { id }: ClientFindOneParamDto): Promise<IClient> {
+    return this.service.delete(id);
   }
 }

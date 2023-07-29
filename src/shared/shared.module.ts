@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
-import { RedisWrapService } from './redis/redis.service';
+import { RedisService } from './redis/redis.service';
 
 @Module({
-  providers: [RedisWrapService],
-  exports: [RedisWrapService],
+  providers: [RedisService],
+  exports: [RedisService],
 })
+
 export class SharedModule {}
