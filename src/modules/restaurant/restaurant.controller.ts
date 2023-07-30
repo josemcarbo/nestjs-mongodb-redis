@@ -8,7 +8,6 @@ import {
   Post,
 } from "@nestjs/common";
 import {
-  RestaurantBookingRequestDto,
   RestaurantCreateRequestDto,
   RestaurantFindOneParamDto,
   RestaurantFindResponseDto,
@@ -34,17 +33,6 @@ export class RestaurantController {
   @Get("/:id")
   findOne(@Param() { id }: RestaurantFindOneParamDto): Promise<IRestaurant> {
     return this.service.findOne(id);
-  }
-
-  @ApiBearerAuth()
-  @ApiResponse({ status: 200, type: RestaurantFindResponseDto })
-  @ApiOperation({ description: "Create a booking" })
-  @Post("/:id/booking")
-  reservation(
-    @Param() { id }: RestaurantFindOneParamDto,
-    @Body() booking: RestaurantBookingRequestDto
-  ): Promise<IRestaurant> {
-    return this.service.booking(id, booking.client);
   }
 
   @ApiBearerAuth()

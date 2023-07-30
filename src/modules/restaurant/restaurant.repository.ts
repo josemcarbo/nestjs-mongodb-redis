@@ -35,7 +35,7 @@ export class RestaurantRepository {
   async delete(id: string): Promise<IRestaurant> {
     const restaurantRemoved = await this.db.findByIdAndRemove(id);
 
-    return RestaurantTransformer.toResponse(restaurantRemoved.toObject());
+    return restaurantRemoved && RestaurantTransformer.toResponse(restaurantRemoved.toObject());
   }
 
   async booking(id: string, client: string): Promise<IRestaurant> {

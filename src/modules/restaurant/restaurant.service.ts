@@ -55,12 +55,14 @@ export class RestaurantService {
   }
 
   async delete(id: string): Promise<IRestaurant> {
-    const [response] = await Promise.all([
+    const [restaurant] = await Promise.all([
       this.repository.delete(id),
       this.redisService.del(id),
     ]);
 
-    return response;
+    if (!restaurant) throw new NotFoundException("Restaurant not found");
+
+    return restaurant;
   }
 
   async booking(id: string, client: string): Promise<IRestaurant> {

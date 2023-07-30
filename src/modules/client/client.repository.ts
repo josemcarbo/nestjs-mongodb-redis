@@ -30,6 +30,6 @@ export class ClientRepository {
   async delete(id: string): Promise<IClient> {
     const clientRemoved = await this.db.findByIdAndRemove(id);
 
-    return ClientTransformer.toResponse(clientRemoved.toObject());
+    return clientRemoved && ClientTransformer.toResponse(clientRemoved.toObject());
   }
 }

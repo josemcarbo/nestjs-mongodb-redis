@@ -42,11 +42,13 @@ export class ClientService {
   }
 
   async delete(id: string): Promise<IClient> {
-    const [response] = await Promise.all([
+    const [client] = await Promise.all([
       this.repository.delete(id),
       this.redisService.del(id),
     ]);
 
-    return response;
+    if (!client) throw new NotFoundException("Client not found");
+    
+    return client;
   }
 }

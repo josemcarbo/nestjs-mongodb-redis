@@ -14,7 +14,7 @@ export class Restaurant {
   @Prop({ required: true })
   capacity: number;
 
-  @Prop({ type: [MongooseSchema.Types.ObjectId], ref: "Clients", default: [] })
+  @Prop({ type: [MongooseSchema.Types.ObjectId], ref: "Client", default: [] })
   clients: Types.ObjectId[];
 }
 
